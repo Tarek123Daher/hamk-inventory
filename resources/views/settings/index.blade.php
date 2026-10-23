@@ -1,0 +1,9 @@
+@extends('layouts.app')
+@section('title', 'Settings')
+@section('content')
+<div class="page-heading"><div><p class="eyebrow">PREFERENCES</p><h1>Settings</h1><p class="muted">Manage inventory categories and the application setup.</p></div></div>
+<div class="dashboard-grid"><section class="panel"><h2>Categories</h2><p class="muted">Categories organize components; adding a category does not create inventory records.</p>
+    @if(in_array(auth()->user()->role, ['administrator','inventory_manager','coach'], true))<form method="post" action="{{ route('categories.store') }}" class="stack-form">@csrf<label>Category name<input name="name" required maxlength="120"></label><label>Description<textarea name="description" rows="2"></textarea></label><button class="button primary">Add category</button></form>@endif
+    @forelse($categories as $category)<div class="list-row"><span>{{ $category->name }}<small>{{ $category->description ?: 'No description' }}</small></span><strong>{{ $category->components_count }} components</strong></div>@empty<p class="empty-state">No categories created yet.</p>@endforelse
+</section><section class="panel"><h2>System identity</h2><p><strong>HAMK Inventory</strong></p><p class="muted">AI & Robotics Club Management System</p><p class="muted">To change branding or deployment details, update the application configuration and logo assets.</p><div class="callout">Recorded quantities are entered from verified stock movements or an explicitly reviewed import. No sample inventory is seeded.</div><h3>Workbook import</h3><p class="muted">The supplied Arduino inventory workbook was not present in the workspace. It has not been imported. Convert and map each reviewed worksheet to the canonical CSV headers before import.</p>@if(in_array(auth()->user()->role, ['administrator','inventory_manager'], true))<a class="button secondary" href="{{ route('imports.index') }}">Open CSV import review</a>@endif</section></div>
+@endsection

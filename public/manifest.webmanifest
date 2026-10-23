@@ -1,0 +1,17 @@
+{
+  "name": "HAMK Inventory",
+  "short_name": "HAMK Inventory",
+  "description": "HAMK AI and Robotics Club inventory management",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080c12",
+  "theme_color": "#090d13",
+  "icons": [
+    {
+      "src": "/images/hamk-logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
